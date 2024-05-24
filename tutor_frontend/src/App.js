@@ -1,24 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import {ToastContainer} from 'react-toastify';
+import RegisterUser from './Component/User/RegisterUser/RegisterUser';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import LoginUser from './Component/User/LoginUser/LoginUser';
+import MainUserMenu from './Component/User/MainUserMenu/MainUserMenu';
+import RegisterEducator from './Component/Educator/RegisterEducator/RegisterEducator';
+import LoginEducator from './Component/Educator/LoginEducator/LoginEducator';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ToastContainer className={'toast-position'} position='bottom-right'/>
+      <BrowserRouter basename="/">
+        <Routes>
+          <Route path="/registerUser" element={<RegisterUser/>}/>
+          <Route path="/loginUser" element={<LoginUser/>}/>
+          <Route path="/MainUserMenu" element={<MainUserMenu/>}/>
+          
+          <Route path="/registerEducator" element={<RegisterEducator/>}/>
+          <Route path="/loginEducator" element={<LoginEducator/>}/>
+
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
