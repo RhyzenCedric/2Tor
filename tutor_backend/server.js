@@ -91,6 +91,65 @@ app.post('/logineducator', (req,res)=>{
   })
 })
 
+app.get('/users', (req, res) => {
+  // Retrieve all users from the database
+  const sql = "SELECT * FROM users";
+  db.query(sql, (err, data) => {
+      if (err) {
+          console.error("Error fetching users:", err);
+          return res.status(500).json("Error fetching users");
+      }
+      res.json(data); // Send the list of users as a JSON response
+  });
+});
+
+app.get('/educators', (req, res) => {
+  // Retrieve all users from the database
+  const sql = "SELECT * FROM educators";
+  db.query(sql, (err, data) => {
+      if (err) {
+          console.error("Error fetching educators:", err);
+          return res.status(500).json("Error fetching educators");
+      }
+      res.json(data); // Send the list of users as a JSON response
+  });
+});
+
+app.get('/users/:username', (req, res) => {
+  const { username } = req.params;
+  const sql = 'SELECT user_fullname FROM users WHERE user_username = ?';
+  db.query(sql, [username], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      res.json(result[0]);
+    } else {
+      res.status(404).send('User not found');
+    }
+  });
+});
+
+app.get('/educators/:username', (req, res) => {
+  const { username } = req.params;
+  const sql = 'SELECT educator_fullname FROM educators WHERE educator_username = ?';
+  db.query(sql, [username], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      res.json(result[0]);
+    } else {
+      res.status(404).send('Educator not found');
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
 app.listen(8081,()=>{
   console.log("listening");
 })

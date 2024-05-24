@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import validation from '../../LoginEducatorValidation';
+import validation from '../../LoginEducatorValidation'; // Adjusted validation function import
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -22,6 +22,8 @@ export default function LoginEducator() {
             axios.post('http://localhost:5000/logineducator', values)
                 .then(res => {
                     if (res.data === "Success") {
+                        // Save educator info to session storage
+                        sessionStorage.setItem('educator', JSON.stringify(values));
                         navigate('/MainEducatorMenu');
                         toast.success("Logged In Successfully");
                     } else {

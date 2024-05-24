@@ -17,20 +17,20 @@ export default function LoginUser() {
     };
 
     useEffect(() => {
-        // Check errors state after it's updated
         if (errors.user_username === "" && errors.user_password === "") {
             axios.post('http://localhost:5000/loginuser', values)
                 .then(res => {
                     if (res.data === "Success") {
+                        sessionStorage.setItem('user', JSON.stringify(values)); // Store user data in session storage
                         navigate('/MainUserMenu');
                         toast.success("Logged In Successfully");
                     } else {
-                        toast.error("No Record existed"); // Display error message
+                        toast.error("No Record existed");
                     }
                 })
                 .catch(err => console.log(err));
         }
-    }, [errors]); // Run this effect whenever errors state changes
+    }, [errors]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -48,7 +48,7 @@ export default function LoginUser() {
                             placeholder='Enter Username'
                             onChange={handleInput}
                             className='form-control rounded-0'
-                            name='user_username' // Adjusted name attribute
+                            name='user_username'
                         />
                         {errors.user_username && <span className='text-danger'>{errors.user_username}</span>}
                     </div>
@@ -59,7 +59,7 @@ export default function LoginUser() {
                             placeholder='Enter password'
                             onChange={handleInput}
                             className='form-control rounded-0'
-                            name='user_password' // Adjusted name attribute
+                            name='user_password'
                         />
                         {errors.user_password && <span className='text-danger'>{errors.user_password}</span>}
                     </div>
