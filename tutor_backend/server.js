@@ -55,6 +55,42 @@ app.post('/loginuser', (req,res)=>{
   })
 })
 
+app.post('/registereducator', (req, res) => {
+  const sql = "INSERT INTO educators (educator_username, educator_fullname, educator_password, subjects_taught, educator_email, educator_phonenum) VALUES (?, ?, ?, ?, ?, ?)";
+  
+  const values = [
+      req.body.educator_username,
+      req.body.educator_fullname,
+      req.body.educator_password,
+      JSON.stringify(req.body.subjects_taught), // Convert array to JSON string
+      req.body.educator_email,
+      req.body.educator_phonenum
+  ];
+
+  db.query(sql, values, (err, data) => {
+      if (err) {
+          return res.json("Error posting data");
+      }
+      return res.json(data);
+  });
+});
+  
+app.post('/logineducator', (req,res)=>{
+  const sql = "SELECT * FROM educators WHERE `educator_username`= ? AND `educator_password` = ?";
+  db.query(sql, [req.body.educator_username, req.body.educator_password], (err,data)=>{
+    if (err){
+      return res.json("Error posting data");
+    }
+    if(data.length > 0){
+      return res.json("Success");
+    }
+    else{
+      return res.json("Failed");
+    }
+    
+  })
+})
+
 app.listen(8081,()=>{
   console.log("listening");
 })

@@ -3,18 +3,18 @@ export default function validation(values) {
 
     const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-    if (values.user_username === "") {
-        errors.user_username = "Username should not be empty";
+    if (values.educator_username === "") {
+        errors.educator_username = "Username should not be empty";
     } else {
-        errors.user_username = "";
+        errors.educator_username = "";
     }
 
-    if (values.user_password === "") {
-        errors.user_password = "Password should not be empty";
-    } else if (!passwordPattern.test(values.user_password)) {
-        errors.user_password = "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, and one number";
+    if (values.educator_password === "") {
+        errors.educator_password = "Password should not be empty";
+    } else if (!passwordPattern.test(values.educator_password)) {
+        errors.educator_password = "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, and one number";
     } else {
-        errors.user_password = "";
+        errors.educator_password = "";
     }
 
     return errors;
