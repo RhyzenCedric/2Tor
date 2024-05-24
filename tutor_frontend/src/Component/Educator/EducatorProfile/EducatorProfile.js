@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function UserProfile() {
-  const [userData, setUserData] = useState(null);
+export default function EducatorProfile() {
+  const [educatorData, setEducatorData] = useState(null);
 
   useEffect(() => {
-    const user = sessionStorage.getItem('user');
-    if (user) {
-      const { user_username } = JSON.parse(user);
-      axios.get(`http://localhost:5000/users/${user_username}`)
+    const educator = sessionStorage.getItem('educator');
+    if (educator) {
+      const { educator_username } = JSON.parse(educator);
+      axios.get(`http://localhost:5000/educators/${educator_username}`)
         .then(res => {
-          setUserData(res.data);
+          setEducatorData(res.data);
         })
         .catch(err => {
           console.log('Error fetching user data:', err);
@@ -30,14 +30,14 @@ export default function UserProfile() {
 
   return (
     <div>
-      {userData ? (
+      {educatorData ? (
         <div>
-          <h2>User Profile</h2>
-          <p>Username: {userData.user_username}</p>
-          <p>Full Name: {userData.user_fullname}</p>
-          <p>Email: {userData.user_email}</p>
-          <p>Password: {userData.user_password}</p>
-          <p>Phone Number: {userData.user_phonenum}</p>
+          <h2>Educator Profile</h2>
+          <p>Username: {educatorData.educator_username}</p>
+          <p>Full Name: {educatorData.educator_fullname}</p>
+          <p>Email: {educatorData.educator_email}</p>
+          <p>Password: {educatorData.educator_password}</p>
+          <p>Phone Number: {educatorData.educator_phonenum}</p>
           <button onClick={handleEditProfile}>Edit Profile</button>
           <button onClick={handleDeleteProfile}>Delete Profile</button>
         </div>

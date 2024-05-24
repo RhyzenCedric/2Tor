@@ -22,6 +22,7 @@ export default function LoginUser() {
                 .then(res => {
                     if (res.data === "Success") {
                         sessionStorage.setItem('user', JSON.stringify(values)); // Store user data in session storage
+                        console.log(values);
                         navigate('/MainUserMenu');
                         toast.success("Logged In Successfully");
                     } else {

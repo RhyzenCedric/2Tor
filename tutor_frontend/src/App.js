@@ -10,6 +10,7 @@ import LoginEducator from './Component/Educator/LoginEducator/LoginEducator';
 import MainEducatorMenu from './Component/Educator/MainEducatorMenu/MainEducatorMenu';
 import UserProfile from './Component/User/UserProfile/UserProfile';
 import RoleSelection from './Component/RoleSelection';
+import EducatorProfile from './Component/Educator/EducatorProfile/EducatorProfile';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/registerEducator" element={<RegisterEducator/>}/>
           <Route path="/loginEducator" element={<LoginEducator/>}/>
           <Route path="/MainEducatorMenu" element={<MainEducatorMenu/>}/>
+          <Route path="/EducatorProfile" element={<EducatorProfile/>}/>
 
         </Routes>
       </BrowserRouter>

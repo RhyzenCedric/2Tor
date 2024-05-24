@@ -22,7 +22,6 @@ export default function LoginEducator() {
             axios.post('http://localhost:5000/logineducator', values)
                 .then(res => {
                     if (res.data === "Success") {
-                        // Save educator info to session storage
                         sessionStorage.setItem('educator', JSON.stringify(values));
                         navigate('/MainEducatorMenu');
                         toast.success("Logged In Successfully");
