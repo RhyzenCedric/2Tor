@@ -8,6 +8,8 @@ import MainUserMenu from './Component/User/MainUserMenu/MainUserMenu';
 import RegisterEducator from './Component/Educator/RegisterEducator/RegisterEducator';
 import LoginEducator from './Component/Educator/LoginEducator/LoginEducator';
 import MainEducatorMenu from './Component/Educator/MainEducatorMenu/MainEducatorMenu';
+import UserProfile from './Component/User/UserProfile/UserProfile';
+import RoleSelection from './Component/RoleSelection';
 
 function App() {
   return (
@@ -15,10 +17,15 @@ function App() {
       <ToastContainer className={'toast-position'} position='bottom-right'/>
       <BrowserRouter basename="/">
         <Routes>
+
+          <Route path="/" element={<RoleSelection/>}/>
+
+
           <Route path="/registerUser" element={<RegisterUser/>}/>
           <Route path="/loginUser" element={<LoginUser/>}/>
           <Route path="/MainUserMenu" element={<MainUserMenu/>}/>
-          
+          <Route path="/UserProfile" element={<UserProfile/>}/>
+
           <Route path="/registerEducator" element={<RegisterEducator/>}/>
           <Route path="/loginEducator" element={<LoginEducator/>}/>
           <Route path="/MainEducatorMenu" element={<MainEducatorMenu/>}/>
