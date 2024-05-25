@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserProfile() {
   const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = sessionStorage.getItem('user');
@@ -21,11 +23,15 @@ export default function UserProfile() {
   }, []);
 
   const handleEditProfile = () => {
-    // Navigate to edit profile page
+    navigate(`/EditUserProfile/${userData.user_username}`);
   };
 
   const handleDeleteProfile = () => {
     // Implement delete profile functionality
+  };
+
+  const handleReturnButton = () => {
+    navigate('/MainUserMenu');
   };
 
   return (
@@ -40,6 +46,7 @@ export default function UserProfile() {
           <p>Phone Number: {userData.user_phonenum}</p>
           <button onClick={handleEditProfile}>Edit Profile</button>
           <button onClick={handleDeleteProfile}>Delete Profile</button>
+          <button onClick={handleReturnButton}>Back</button>
         </div>
       ) : (
         <p>Loading...</p>

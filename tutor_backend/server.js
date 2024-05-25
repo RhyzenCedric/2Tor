@@ -133,6 +133,25 @@ app.get('/users/:username', (req, res) => {
   });
 });
 
+app.put('/users/:username', (req, res) => {
+  const { username } = req.params;
+  const updatedUserData = req.body;
+
+  const query = `UPDATE users SET ? WHERE user_username = ?`;
+  db.query(query, [updatedUserData, username], (err, results) => {
+    if (err) {
+      console.error('Error updating user data:', err);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+    res.json({ message: 'User data updated successfully' });
+  });
+});
+
 app.get('/educators/:username', (req, res) => {
   const { username } = req.params;
   const query = `SELECT * FROM educators WHERE educator_username = ?`;
@@ -151,6 +170,24 @@ app.get('/educators/:username', (req, res) => {
   });
 });
 
+app.put('/educators/:username', (req, res) => {
+  const { username } = req.params;
+  const updatedEducatorData = req.body;
+
+  const query = `UPDATE educators SET ? WHERE educator_username = ?`;
+  db.query(query, [updatedEducatorData, username], (err, results) => {
+    if (err) {
+      console.error('Error updating user data:', err);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+    res.json({ message: 'Educator data updated successfully' });
+  });
+});
 
 
 
