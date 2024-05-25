@@ -189,7 +189,41 @@ app.put('/educators/:username', (req, res) => {
   });
 });
 
+app.delete('/users/:username', (req, res) => {
+  const { username } = req.params;
+  const query = `DELETE FROM users WHERE user_username = ?`;
 
+  db.query(query, [username], (err, results) => {
+    if (err) {
+      console.error('Error deleting user:', err);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+    res.json({ message: 'User deleted successfully' });
+  });
+});
+
+app.delete('/educators/:username', (req, res) => {
+  const { username } = req.params;
+  const query = `DELETE FROM educators WHERE educators.educator_username = ?`;
+
+  db.query(query, [username], (err, results) => {
+    if (err) {
+      console.error('Error deleting educator:', err);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'Educator not found' });
+      return;
+    }
+    res.json({ message: 'Educator deleted successfully' });
+  });
+});
 
 
 

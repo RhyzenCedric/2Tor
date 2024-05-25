@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function UsersTable() {
   const [users, setUsers] = useState([]);
@@ -22,6 +23,17 @@ export default function UsersTable() {
   const handleUpdateUser = (username) => {
     navigate(`/UpdateUser/${username}`);
   }
+
+  const handleDeleteUser = async (username) => {
+    try {
+      await axios.delete(`http://localhost:5000/users/${username}`);
+      // Remove the deleted user from the state
+      setUsers(users.filter(user => user.user_username !== username));
+      toast.success("User Deleted")
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
 
   return (
     <div>
@@ -48,7 +60,7 @@ export default function UsersTable() {
               <td>{user.user_phonenum}</td>
               <td>
                 <button onClick={() => handleUpdateUser(user.user_username)}>Edit</button>
-                <button>Delete</button>
+                <button onClick={() => handleDeleteUser(user.user_username)}>Delete</button>
               </td>
             </tr>
           ))}
