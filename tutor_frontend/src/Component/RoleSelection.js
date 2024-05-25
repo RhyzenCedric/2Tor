@@ -15,6 +15,11 @@ export default function RoleSelection() {
           <button>Educator</button>
         </Link>
       </div>
+      <div>
+        <Link to="/TableSelection">
+          <button>Admin</button>
+        </Link>
+      </div>
     </div>
   );
 }

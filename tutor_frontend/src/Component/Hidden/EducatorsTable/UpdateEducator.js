@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import validation from '../../RegisterEducatorValidation'; // assuming you have a validation file for educators
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-export default function EditEducatorProfile() {
+export default function UpdateEducator() {
     const [values, setValues] = useState({
         educator_username: '',
         educator_password: '',
@@ -16,6 +16,19 @@ export default function EditEducatorProfile() {
     });
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
+    const { username } = useParams();
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/educators/${username}`)
+            .then(response => {
+                setValues(response.data);
+            })
+            .catch(error => {
+                console.error('Error retrieving user data:', error);
+                // Handle error, e.g., display error message
+            });
+    }, [username]);
+
 
     const handleInput = (e) => {
         setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -33,51 +46,24 @@ export default function EditEducatorProfile() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(values);
         setErrors(validation(values));
     }
 
     useEffect(() => {
-        const educator = sessionStorage.getItem('educator');
-        if (educator) {
-            const educatorData = JSON.parse(educator);
-            const { educator_username } = educatorData;
-            axios.get(`http://localhost:5000/educators/${educator_username}`)
-                .then(response => {
-                    setValues(response.data);
-                })
-                .catch(error => {
-                    console.error('Error retrieving user data:', error);
-                    // Handle error, e.g., display error message
-                });
-        } else {
-            console.log('No user data found in session storage.');
-        }
-    }, []);
-
-    useEffect(() => {
-        const UpdateEducator = async () => {
-            try {
-                const res = await axios.put(`http://localhost:5000/educators/${values.educator_username}`, values); // assuming the endpoint is registereducator
-                toast.success("Update Successful"); // Display success message
-                navigate('/EducatorProfile');
-            } catch (err) {
-                console.log(err);
-                toast.error("Registration Failed"); // Display error message
-            }
-        };
-
         // Check errors state after it's updated
-        if (
-            errors.educator_username === "" &&
-            errors.educator_fullname === "" &&
-            errors.educator_password === "" &&
-            errors.educator_email === "" &&
-            errors.educator_phonenum === ""
-        ) {
-            UpdateEducator();
+        if (Object.values(errors).every(error => error === "")) {
+            axios.put(`http://localhost:5000/educators/${values.educator_username}`, values)
+                .then(res => {
+                    toast.success("Update Successful"); // Display success message
+                    navigate('/EducatorsTable');
+                })
+                .catch(err => {
+                    console.error(err);
+                    
+                });
         }
     }, [errors]); // Run this effect whenever errors state changes
+
     return (
         <div className='d-flex justify-content-center align-items-center bg-primary vh-100 vw-100'>
             <div className='bg-white p-3 rounded w-50'>

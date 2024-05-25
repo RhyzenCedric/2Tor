@@ -13,6 +13,13 @@ import RoleSelection from './Component/RoleSelection';
 import EducatorProfile from './Component/Educator/EducatorProfile/EducatorProfile';
 import EditUserProfile from './Component/User/UserProfile/EditUserProfile';
 import EditEducatorProfile from './Component/Educator/EducatorProfile/EditEducatorProfile';
+import TableSelection from './Component/Hidden/TableSelection';
+import UsersTable from './Component/Hidden/UsersTable/UsersTable';
+import EducatorsTable from './Component/Hidden/EducatorsTable/EducatorsTable';
+import AddUsers from './Component/Hidden/UsersTable/AddUsers';
+import UpdateUser from './Component/Hidden/UsersTable/UpdateUser';
+import UpdateEducator from './Component/Hidden/EducatorsTable/UpdateEducator';
+import AddEducators from './Component/Hidden/EducatorsTable/AddEducators';
 
 function App() {
   return (
@@ -23,6 +30,13 @@ function App() {
 
           <Route path="/" element={<RoleSelection/>}/>
 
+          <Route path="/TableSelection" element={<TableSelection/>}/>
+          <Route path="/UsersTable" element={<UsersTable/>}/>
+          <Route path="/EducatorsTable" element={<EducatorsTable/>}/>
+          <Route path="/AddUsers" element={<AddUsers/>}/>
+          <Route path="/UpdateUser/:username" element={<UpdateUser/>}/>
+          <Route path="/AddEducators" element={<AddEducators/>}/>
+          <Route path="/UpdateEducator/:username" element={<UpdateEducator/>}/>
 
           <Route path="/registerUser" element={<RegisterUser/>}/>
           <Route path="/loginUser" element={<LoginUser/>}/>
