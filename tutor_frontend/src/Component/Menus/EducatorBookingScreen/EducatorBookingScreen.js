@@ -75,16 +75,8 @@ export default function EducatorBookingScreen() {
         <p>{userFullname}</p>
       </div>
       <div>
-        <label>User Username:</label> {/* Display user username */}
-        <p>{userUsername}</p>
-      </div>
-      <div>
         <label>Educator Full Name:</label>
         <p>{educatorFullname}</p>
-      </div>
-      <div>
-        <label>Educator Username:</label> {/* Display educator username */}
-        <p>{educatorUsername}</p>
       </div>
       <div>
         <label>Subject:</label>
@@ -96,8 +88,11 @@ export default function EducatorBookingScreen() {
       </div>
       {/* Display calendar for booking */}
       {/* Implement double booking check UI */}
-      {isDoubleBooking && <p style={{ color: 'red' }}>This slot is already booked. Please choose another slot.</p>}
-      <button type="submit">Book Slot</button>
+      {isDoubleBooking ? (
+        <p style={{ color: 'red' }}>This slot is already booked. Please choose another slot.</p>
+      ) : (
+        <button type="submit" disabled={isDoubleBooking}>Book Slot</button>
+      )}
     </form>
   </div>
   );
