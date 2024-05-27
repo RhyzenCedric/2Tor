@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom'; // Import Link from react-router-dom
-import Calendar from '../../Calendar'; // Import the Calendar component
+import { useParams, Link } from 'react-router-dom';
+import Calendar from '../../Calendar';
 import { toast } from 'react-toastify';
 
 export default function EducatorBookingScreen() {
-  const { username, subject } = useParams(); // Retrieve subject from params
+  const { username, subject } = useParams();
   const [userFullname, setUserFullname] = useState('');
   const [userUsername, setUserusername] = useState('');
   const [educatorFullname, setEducatorFullname] = useState('');
   const [educatorUsername, setEducatorusername] = useState('');
   const [isDoubleBooking, setIsDoubleBooking] = useState(false);
   const [bookingDate, setBookingDate] = useState('');
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    // Fetch user data based on the logged-in user's session
     const user = sessionStorage.getItem('user');
     if (user) {
       const { user_username } = JSON.parse(user);
@@ -28,7 +28,6 @@ export default function EducatorBookingScreen() {
         });
     }
 
-    // Fetch educator data based on the selected educator
     axios.get(`http://localhost:5000/educators/${username}`)
       .then(res => {
         setEducatorFullname(res.data.educator_fullname);
@@ -38,18 +37,22 @@ export default function EducatorBookingScreen() {
         console.log('Error fetching educator data:', err);
       });
 
-    // Implement logic to check for double booking
-    // You may need to fetch booking data for the selected educator and subject
-    // Then, check if the desired booking slot is available
-    // For demonstration, let's assume there's no double booking check
-    // setIsDoubleBooking(checkForDoubleBooking()); // Implement this function
-  }, [username]);
+    // Fetch reviews for the specific educator and subject
+    axios.get(`http://localhost:5000/reviews/${username}/${subject}`)
+      .then(res => {
+        setReviews(res.data);
+      })
+      .catch(err => {
+        console.log('Error fetching reviews:', err);
+      });
 
-  // Function to handle booking submission
+    // Implement logic to check for double booking
+    // setIsDoubleBooking(checkForDoubleBooking()); // Implement this function
+  }, [username, subject]);
+
   const handleBookingSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Send a POST request to create the appointment
       await axios.post('http://localhost:5000/createappointment', {
         user_fullname: userFullname,
         user_username: userUsername,
@@ -58,10 +61,8 @@ export default function EducatorBookingScreen() {
         subject_name: subject,
         date_booked: bookingDate
       });
-      // If successful, display a success message or handle UI accordingly
       toast.success('Appointment booked successfully!');
     } catch (error) {
-      // If an error occurs, handle it and display an error message or handle UI accordingly
       console.error('Error booking appointment:', error);
     }
   };
@@ -86,15 +87,24 @@ export default function EducatorBookingScreen() {
           <label>Booking Date:</label>
           <Calendar selectedDate={bookingDate} onDateChange={setBookingDate} />
         </div>
-        {/* Display calendar for booking */}
-        {/* Implement double booking check UI */}
         {isDoubleBooking && <p style={{ color: 'red' }}>This slot is already booked. Please choose another slot.</p>}
         <button type="submit">Book Slot</button>
-        {/* Add review button with Link */}
         <Link to={`/EducatorReviewScreen/${username}/${subject}`}>
           <button>Leave a Review</button>
         </Link>
       </form>
+      
+      <h2>Reviews for {educatorFullname} on {subject}</h2>
+        {reviews.length === 0 ? (
+        <p>No reviews available</p>
+        ) : (
+        reviews.map(review => (
+            <div key={review.review_id}>
+            <p>User: {review.user_fullname}</p>
+            <p>Review: {review.review_text}</p>
+            <hr />
+            </div>
+        )))}
     </div>
   );
 }

@@ -282,6 +282,30 @@ app.get('/appointments/:username/:subject', (req, res) => {
   });
 });
 
+app.get('/reviews', (req, res) => {
+  // Retrieve all appointments from the database
+  const sql = "SELECT * FROM reviews";
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.error("Error fetching reviews:", err);
+      return res.status(500).json("Error fetching appointments");
+    }
+    res.json(data); // Send the list of appointments as a JSON response
+  });
+});
+
+app.get('/reviews/:username/:subject', (req, res) => {
+  const { username, subject } = req.params; // Retrieve username and subject from request parameters
+  // SQL query to retrieve reviews for the specified educator and subject
+  const sql = "SELECT * FROM reviews WHERE `educator_username` = ? AND `subject_name` = ?";
+  db.query(sql, [username, subject], (err, data) => {
+    if (err) {
+      console.error("Error fetching reviews:", err);
+      return res.status(500).json("Error fetching reviews");
+    }
+    res.json(data); // Send the list of reviews as a JSON response
+  });
+});
 
 app.post('/submitReview', (req, res) => {
   const { user_fullname, user_username, educator_fullname, educator_username, subject_name, review_text, review_date, sentiment_score } = req.body;

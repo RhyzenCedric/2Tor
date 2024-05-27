@@ -19,8 +19,6 @@ export default function EducatorReviewScreen() {
             const sentimentScore = calculateSentimentScore(review);
             // Get current date and time
             const currentDate = new Date();
-            // Format date to 'dd/mm/yyyy' (e.g., 05/08/2022)
-            // Send the review along with sentiment score and formatted date to the server
             await axios.post('http://localhost:5000/submitReview', {
                 user_fullname: userFullname,
                 user_username: userUsername,
