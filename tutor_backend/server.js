@@ -268,6 +268,19 @@ app.get('/appointments', (req, res) => {
   });
 });
 
+app.get('/appointments/:username/:subject', (req, res) => {
+  const { username, subject } = req.params;
+
+  // Retrieve all appointments for the specified educator and subject from the database
+  const sql = "SELECT * FROM appointments WHERE `educator_username` = ? AND `subject_name` = ?";
+  db.query(sql, [username, subject], (err, data) => {
+    if (err) {
+      console.error("Error fetching appointments:", err);
+      return res.status(500).json("Error fetching appointments");
+    }
+    res.json(data); // Send the list of appointments as a JSON response
+  });
+});
 
 
 app.listen(8081,()=>{

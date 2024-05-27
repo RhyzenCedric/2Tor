@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Calendar from '../../Calendar'; // Import the Calendar component
 import { toast } from 'react-toastify';
 
@@ -52,7 +52,7 @@ export default function EducatorBookingScreen() {
       // Send a POST request to create the appointment
       await axios.post('http://localhost:5000/createappointment', {
         user_fullname: userFullname,
-        user_username:userUsername,
+        user_username: userUsername,
         educator_fullname: educatorFullname,
         educator_username: educatorUsername,
         subject_name: subject,
@@ -68,32 +68,33 @@ export default function EducatorBookingScreen() {
 
   return (
     <div>
-    <h1>Booking Details</h1>
-    <form onSubmit={handleBookingSubmit}>
-      <div>
-        <label>User Full Name:</label>
-        <p>{userFullname}</p>
-      </div>
-      <div>
-        <label>Educator Full Name:</label>
-        <p>{educatorFullname}</p>
-      </div>
-      <div>
-        <label>Subject:</label>
-        <p>{subject}</p>
-      </div>
-      <div>
-        <label>Booking Date:</label>
-        <Calendar selectedDate={bookingDate} onDateChange={setBookingDate} />
-      </div>
-      {/* Display calendar for booking */}
-      {/* Implement double booking check UI */}
-      {isDoubleBooking ? (
-        <p style={{ color: 'red' }}>This slot is already booked. Please choose another slot.</p>
-      ) : (
-        <button type="submit" disabled={isDoubleBooking}>Book Slot</button>
-      )}
-    </form>
-  </div>
+      <h1>Booking Details</h1>
+      <form onSubmit={handleBookingSubmit}>
+        <div>
+          <label>User Full Name:</label>
+          <p>{userFullname}</p>
+        </div>
+        <div>
+          <label>Educator Full Name:</label>
+          <p>{educatorFullname}</p>
+        </div>
+        <div>
+          <label>Subject:</label>
+          <p>{subject}</p>
+        </div>
+        <div>
+          <label>Booking Date:</label>
+          <Calendar selectedDate={bookingDate} onDateChange={setBookingDate} />
+        </div>
+        {/* Display calendar for booking */}
+        {/* Implement double booking check UI */}
+        {isDoubleBooking && <p style={{ color: 'red' }}>This slot is already booked. Please choose another slot.</p>}
+        <button type="submit">Book Slot</button>
+        {/* Add review button with Link */}
+        <Link to={`/EducatorReviewScreen/${username}/${subject}`}>
+          <button>Leave a Review</button>
+        </Link>
+      </form>
+    </div>
   );
 }
