@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import validation from '../../RegisterEducatorValidation'; // assuming you have a validation file for educators
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import './RegisterEducator.css'; // Import the CSS file
+import './RegisterEducator.css'
+import logo_large from '../../../images/2TorLogo.png';
 
 export default function RegisterEducator() {
     const [values, setValues] = useState({
@@ -14,6 +17,7 @@ export default function RegisterEducator() {
         subjects_taught: [],
         newSubject: ''
     });
+    const [passwordVisible, setPasswordVisible] = useState(false); // State to manage password visibility
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
 
@@ -29,12 +33,6 @@ export default function RegisterEducator() {
                 newSubject: ''
             }));
         }
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(values);
-        setErrors(validation(values));
     };
 
     useEffect(() => {
@@ -61,30 +59,44 @@ export default function RegisterEducator() {
         }
     }, [errors]); // Run this effect whenever errors state changes
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setErrors(validation(values));
+    };
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(prev => !prev);
+    };
+
     return (
-        <div className='d-flex justify-content-center align-items-center bg-primary vh-100 vw-100'>
-            <div className='bg-white p-3 rounded w-50'>
+        <div className='register-container'>
+            <div className='register-box'>
                 <form onSubmit={handleSubmit}>
-                <div className='mb-3'>
+                    <div className='mb-3'>
                         <label htmlFor='educator_username'><strong>Username</strong></label>
                         <input
                             type='text'
                             placeholder='Enter Username'
                             name='educator_username'
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.educator_username && <span className='text-danger'>{errors.educator_username}</span>}
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='educator_password'>Password</label>
-                        <input
-                            type='password'
-                            placeholder='Enter password'
-                            name='educator_password'
-                            onChange={handleInput}
-                            className='form-control rounded-0'
-                        />
+                        <label htmlFor='educator_password'><strong>Password</strong></label>
+                        <div className='password-container'>
+                            <input
+                                type={passwordVisible ? 'text' : 'password'}
+                                placeholder='Enter Password'
+                                name='educator_password'
+                                onChange={handleInput}
+                                className='form-control'
+                            />
+                            <button type='button' className='toggle-password' onClick={togglePasswordVisibility}>
+                                {passwordVisible ? 'Hide' : 'Show'}
+                            </button>
+                        </div>
                         {errors.educator_password && <span className='text-danger'>{errors.educator_password}</span>}
                     </div>
                     <div className='mb-3'>
@@ -94,7 +106,7 @@ export default function RegisterEducator() {
                             placeholder='Enter Full Name'
                             name='educator_fullname'
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.educator_fullname && <span className='text-danger'>{errors.educator_fullname}</span>}
                     </div>
@@ -105,7 +117,7 @@ export default function RegisterEducator() {
                             placeholder='Enter Email'
                             name='educator_email'
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.educator_email && <span className='text-danger'>{errors.educator_email}</span>}
                     </div>
@@ -116,7 +128,7 @@ export default function RegisterEducator() {
                             placeholder='Enter Phone Number'
                             name='educator_phonenum'
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.educator_phonenum && <span className='text-danger'>{errors.educator_phonenum}</span>}
                     </div>
@@ -129,7 +141,7 @@ export default function RegisterEducator() {
                                 name='newSubject'
                                 value={values.newSubject}
                                 onChange={handleInput}
-                                className='form-control rounded-0'
+                                className='form-control'
                             />
                             <button type="button" onClick={addSubject} className="btn btn-primary ms-2">Add Subject</button>
                         </div>
@@ -140,8 +152,11 @@ export default function RegisterEducator() {
                         ))}
                     </div>
                     <button type='submit' className='btn btn-success w-100'><strong>Register</strong></button>
-                    <Link to="/loginEducator" className='btn btn-default border w-100'>Login</Link>
+                    <Link to="/loginEducator" className='btn btn-default border w-100'><strong>Login</strong></Link>
                 </form>
+            </div>
+            <div className="logo-container">
+                <img src={logo_large} alt="2Tor Logo" className="logo_large" />
             </div>
         </div>
     );

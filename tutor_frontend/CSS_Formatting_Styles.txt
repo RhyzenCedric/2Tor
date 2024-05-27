@@ -1,0 +1,9 @@
+#1dbf73 green - bg color
+
+#50caa3 green - button color
+
+#3ea088 green - hover-color
+
+#64d2ed blue - button
+
+#1e9ee3 blue - hover-color

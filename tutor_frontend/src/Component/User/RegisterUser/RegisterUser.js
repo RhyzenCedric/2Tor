@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import validation from '../../RegisterUserValidation';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import './RegisterUser.css';
+import logo_large from '../../../images/2TorLogo.png';
 
 export default function RegisterUser() {
     const [values, setValues] = useState({
@@ -12,6 +14,7 @@ export default function RegisterUser() {
         user_email: '',
         user_phonenum: ''
     });
+    const [passwordVisible, setPasswordVisible] = useState(false); // State to manage password visibility
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
 
@@ -20,28 +23,31 @@ export default function RegisterUser() {
     };
 
     useEffect(() => {
-        // Check errors state after it's updated
         if (errors.user_username === "" && errors.user_fullname === "" && errors.user_password === "" && errors.user_email === "" && errors.user_phonenum === "") {
             axios.post('http://localhost:5000/registeruser', values)
                 .then(res => {
-                    toast.success("Registration Successful"); // Display success message
+                    toast.success("Registration Successful");
                     navigate('/loginUser');
                 })
                 .catch(err => {
                     console.log(err);
-                    toast.error("Registration Failed"); // Display error message
+                    toast.error("Registration Failed");
                 });
         }
-    }, [errors]); // Run this effect whenever errors state changes
+    }, [errors]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors(validation(values));
     };
 
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(prev => !prev);
+    };
+
     return (
-        <div className='d-flex justify-content-center align-items-center bg-primary vh-100 vw-100'>
-            <div className='bg-white p-3 rounded w-25'>
+        <div className='register-container'>
+            <div className='register-box'>
                 <form onSubmit={handleSubmit}>
                     <div className='mb-3'>
                         <label htmlFor='user_username'><strong>Username</strong></label>
@@ -50,19 +56,24 @@ export default function RegisterUser() {
                             placeholder='Enter Username'
                             name='user_username'
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.user_username && <span className='text-danger'>{errors.user_username}</span>}
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='user_password'>Password</label>
-                        <input
-                            type='password'
-                            placeholder='Enter password'
-                            name='user_password'
-                            onChange={handleInput}
-                            className='form-control rounded-0'
-                        />
+                        <label htmlFor='user_password'><strong>Password</strong></label>
+                        <div className='password-container'>
+                            <input
+                                type={passwordVisible ? 'text' : 'password'}
+                                placeholder='Enter Password'
+                                name='user_password'
+                                onChange={handleInput}
+                                className='form-control'
+                            />
+                            <button type='button' className='toggle-password' onClick={togglePasswordVisibility}>
+                                {passwordVisible ? 'Hide' : 'Show'}
+                            </button>
+                        </div>
                         {errors.user_password && <span className='text-danger'>{errors.user_password}</span>}
                     </div>
                     <div className='mb-3'>
@@ -72,7 +83,7 @@ export default function RegisterUser() {
                             placeholder='Enter Full Name'
                             name='user_fullname'
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.user_fullname && <span className='text-danger'>{errors.user_fullname}</span>}
                     </div>
@@ -83,7 +94,7 @@ export default function RegisterUser() {
                             placeholder='Enter Email'
                             name='user_email'
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.user_email && <span className='text-danger'>{errors.user_email}</span>}
                     </div>
@@ -94,13 +105,16 @@ export default function RegisterUser() {
                             placeholder='Enter Phone Number'
                             name='user_phonenum'
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.user_phonenum && <span className='text-danger'>{errors.user_phonenum}</span>}
                     </div>
                     <button type='submit' className='btn btn-success w-100'><strong>Register</strong></button>
-                    <Link to="/loginUser" className='btn btn-default border w-100'>Login</Link>
+                    <Link to="/loginUser" className='btn btn-default w-100 mt-3'><strong>Login</strong></Link>
                 </form>
+            </div>
+            <div className="logo-container">
+                <img src={logo_large} alt="2Tor Logo" className="logo_large" />
             </div>
         </div>
     );

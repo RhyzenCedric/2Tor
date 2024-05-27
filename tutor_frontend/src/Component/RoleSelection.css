@@ -1,0 +1,56 @@
+/* Container for the entire role selection section */
+.role-selection-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #1dbf73; /* Light background color */
+  }
+  
+  /* Container for the logo */
+  .logo-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the logo */
+  .logo_large {
+    width: 300px; /* Increased size */
+    height: auto;
+  }
+  
+  /* Box container for the buttons */
+  .box-container {
+    background-color: #ffffff; /* White background color for the box */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 30px; /* Padding inside the box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  /* Container for the buttons */
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between buttons */
+  }
+  
+  /* Style for the role buttons */
+  .role-button {
+    width: 200px;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff; /* White text color */
+    background-color: #50caa3; /* Primary blue color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+    font-weight: 500;
+  }
+  
+  /* Hover effect for buttons */
+  .role-button:hover {
+    background-color: #3ea088; /* Darker blue on hover */
+  }
+  

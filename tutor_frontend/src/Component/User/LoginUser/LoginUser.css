@@ -1,0 +1,93 @@
+/* Container for the login section */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #1dbf73; /* Light background color */
+}
+
+/* Box container for the login form */
+.login-box {
+    background-color: #ffffff; /* White background color for the box */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 30px; /* Padding inside the box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100%;
+    max-width: 400px; /* Max width for responsiveness */
+}
+
+/* Form control styles */
+.form-control {
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px;
+    font-size: 16px; /* Font size */
+    margin-bottom: 15px; /* Space between form elements */
+}
+
+/* Password container */
+.password-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex-grow: 1;
+}
+
+.toggle-password {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.toggle-password:hover {
+    text-decoration: underline;
+}
+
+/* Button styles */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.btn-success {
+    background-color: #50caa3; /* Success green color */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+}
+
+.btn-success:hover {
+    background-color: #3ea088 ; /* Darker green on hover */
+}
+
+/* Specific style for the "New User" button */
+.login-box .btn-default {
+    background-color: #64d2ed; 
+    color: #fff; 
+    border: none;
+}
+
+.login-box .btn-default:hover {
+    background-color: #1e9ee3; 
+}
+
+/* Error message styles */
+.text-danger {
+    color: #dc3545; /* Danger red color */
+    font-size: 14px; /* Font size */
+    margin-top: -10px; /* Adjust margin for better spacing */
+    margin-bottom: 10px; /* Adjust margin for better spacing */
+}
+
+/* Link styles */
+a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color */
+}
