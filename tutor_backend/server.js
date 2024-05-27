@@ -240,9 +240,33 @@ app.get('/educators/subjects_taught/:subject', (req, res) => {
   });
 });
 
+app.post('/createappointment', (req, res) => {
+  const { user_fullname, educator_fullname, subject_name, date_booked } = req.body;
 
+  const sql = "INSERT INTO appointments (user_fullname, educator_fullname, subject_name, date_booked) VALUES (?, ?, ?, ?)";
 
+  const values = [user_fullname, educator_fullname, subject_name, date_booked];
 
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      console.error('Error posting appointment:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    return res.json({ message: 'Appointment created successfully' });
+  });
+});
+
+app.get('/appointments', (req, res) => {
+  // Retrieve all appointments from the database
+  const sql = "SELECT * FROM appointments";
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.error("Error fetching appointments:", err);
+      return res.status(500).json("Error fetching appointments");
+    }
+    res.json(data); // Send the list of appointments as a JSON response
+  });
+});
 
 
 

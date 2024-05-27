@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Calendar from '../../Calendar'; // Import the Calendar component
+import { toast } from 'react-toastify';
 
 export default function EducatorBookingScreen() {
   const { username, subject } = useParams(); // Retrieve subject from params
   const [userFullname, setUserFullname] = useState('');
   const [educatorFullname, setEducatorFullname] = useState('');
   const [isDoubleBooking, setIsDoubleBooking] = useState(false);
+  const [bookingDate, setBookingDate] = useState('');
 
   useEffect(() => {
     // Fetch user data based on the logged-in user's session
@@ -39,11 +42,22 @@ export default function EducatorBookingScreen() {
   }, [username]);
 
   // Function to handle booking submission
-  const handleBookingSubmit = (event) => {
+  const handleBookingSubmit = async (event) => {
     event.preventDefault();
-    // Implement booking submission logic here
-    // You can post the booking details to the backend server
-    // Make sure to handle any errors and update UI accordingly
+    try {
+      // Send a POST request to create the appointment
+      await axios.post('http://localhost:5000/createappointment', {
+        user_fullname: userFullname,
+        educator_fullname: educatorFullname,
+        subject_name: subject,
+        date_booked: bookingDate
+      });
+      // If successful, display a success message or handle UI accordingly
+      toast.success('Appointment booked successfully!');
+    } catch (error) {
+      // If an error occurs, handle it and display an error message or handle UI accordingly
+      console.error('Error booking appointment:', error);
+    }
   };
 
   return (
@@ -61,6 +75,10 @@ export default function EducatorBookingScreen() {
         <div>
           <label>Subject:</label>
           <p>{subject}</p>
+        </div>
+        <div>
+          <label>Booking Date:</label>
+          <Calendar selectedDate={bookingDate} onDateChange={setBookingDate} />
         </div>
         {/* Display calendar for booking */}
         {/* Implement double booking check UI */}

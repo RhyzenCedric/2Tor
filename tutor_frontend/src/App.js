@@ -22,6 +22,7 @@ import UpdateEducator from './Component/Hidden/EducatorsTable/UpdateEducator';
 import AddEducators from './Component/Hidden/EducatorsTable/AddEducators';
 import EducatorSelectionScreen from './Component/Menus/EducatorSelectionScreen/EducatorSelectionScreen';
 import EducatorBookingScreen from './Component/Menus/EducatorBookingScreen/EducatorBookingScreen';
+import EducatorReviewScreen from './Component/Menus/EducatorReviewScreen/EducatorReviewScreen';
 
 function App() {
   return (
@@ -54,7 +55,7 @@ function App() {
 
           <Route path="/EducatorSelectionScreen/:subject" element={<EducatorSelectionScreen/>}/>
           <Route path="/EducatorBookingScreen/:username/:subject" element={<EducatorBookingScreen/>}/>
-
+          <Route path="/EducatorReviewScreen/:username/:subject" element={<EducatorReviewScreen/>}/>
 
         </Routes>
       </BrowserRouter>
