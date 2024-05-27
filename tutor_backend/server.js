@@ -283,6 +283,22 @@ app.get('/appointments/:username/:subject', (req, res) => {
 });
 
 
+app.post('/submitReview', (req, res) => {
+  const { user_fullname, user_username, educator_fullname, educator_username, subject_name, review_text, review_date, sentiment_score } = req.body;
+
+  const sql = "INSERT INTO reviews (user_fullname, user_username, educator_fullname, educator_username, subject_name, review_text, review_date, sentiment_score) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+  const values = [user_fullname, user_username, educator_fullname, educator_username, subject_name, review_text, review_date, sentiment_score];
+
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      console.error('Error posting review:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    return res.json({ message: 'Review posted successfully' });
+  });
+});
+
 app.listen(8081,()=>{
   console.log("listening");
 })
