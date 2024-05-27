@@ -7,7 +7,9 @@ import { toast } from 'react-toastify';
 export default function EducatorBookingScreen() {
   const { username, subject } = useParams(); // Retrieve subject from params
   const [userFullname, setUserFullname] = useState('');
+  const [userUsername, setUserusername] = useState('');
   const [educatorFullname, setEducatorFullname] = useState('');
+  const [educatorUsername, setEducatorusername] = useState('');
   const [isDoubleBooking, setIsDoubleBooking] = useState(false);
   const [bookingDate, setBookingDate] = useState('');
 
@@ -19,6 +21,7 @@ export default function EducatorBookingScreen() {
       axios.get(`http://localhost:5000/users/${user_username}`)
         .then(res => {
           setUserFullname(res.data.user_fullname);
+          setUserusername(res.data.user_username);
         })
         .catch(err => {
           console.log('Error fetching user data:', err);
@@ -29,6 +32,7 @@ export default function EducatorBookingScreen() {
     axios.get(`http://localhost:5000/educators/${username}`)
       .then(res => {
         setEducatorFullname(res.data.educator_fullname);
+        setEducatorusername(res.data.educator_username);
       })
       .catch(err => {
         console.log('Error fetching educator data:', err);
@@ -48,7 +52,9 @@ export default function EducatorBookingScreen() {
       // Send a POST request to create the appointment
       await axios.post('http://localhost:5000/createappointment', {
         user_fullname: userFullname,
+        user_username:userUsername,
         educator_fullname: educatorFullname,
+        educator_username: educatorUsername,
         subject_name: subject,
         date_booked: bookingDate
       });
@@ -62,29 +68,37 @@ export default function EducatorBookingScreen() {
 
   return (
     <div>
-      <h1>Booking Details</h1>
-      <form onSubmit={handleBookingSubmit}>
-        <div>
-          <label>User Full Name:</label>
-          <p>{userFullname}</p>
-        </div>
-        <div>
-          <label>Educator Full Name:</label>
-          <p>{educatorFullname}</p>
-        </div>
-        <div>
-          <label>Subject:</label>
-          <p>{subject}</p>
-        </div>
-        <div>
-          <label>Booking Date:</label>
-          <Calendar selectedDate={bookingDate} onDateChange={setBookingDate} />
-        </div>
-        {/* Display calendar for booking */}
-        {/* Implement double booking check UI */}
-        {isDoubleBooking && <p style={{ color: 'red' }}>This slot is already booked. Please choose another slot.</p>}
-        <button type="submit">Book Slot</button>
-      </form>
-    </div>
+    <h1>Booking Details</h1>
+    <form onSubmit={handleBookingSubmit}>
+      <div>
+        <label>User Full Name:</label>
+        <p>{userFullname}</p>
+      </div>
+      <div>
+        <label>User Username:</label> {/* Display user username */}
+        <p>{userUsername}</p>
+      </div>
+      <div>
+        <label>Educator Full Name:</label>
+        <p>{educatorFullname}</p>
+      </div>
+      <div>
+        <label>Educator Username:</label> {/* Display educator username */}
+        <p>{educatorUsername}</p>
+      </div>
+      <div>
+        <label>Subject:</label>
+        <p>{subject}</p>
+      </div>
+      <div>
+        <label>Booking Date:</label>
+        <Calendar selectedDate={bookingDate} onDateChange={setBookingDate} />
+      </div>
+      {/* Display calendar for booking */}
+      {/* Implement double booking check UI */}
+      {isDoubleBooking && <p style={{ color: 'red' }}>This slot is already booked. Please choose another slot.</p>}
+      <button type="submit">Book Slot</button>
+    </form>
+  </div>
   );
 }

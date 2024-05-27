@@ -241,11 +241,11 @@ app.get('/educators/subjects_taught/:subject', (req, res) => {
 });
 
 app.post('/createappointment', (req, res) => {
-  const { user_fullname, educator_fullname, subject_name, date_booked } = req.body;
+  const { user_fullname, user_username, educator_fullname, educator_username, subject_name, date_booked } = req.body;
 
-  const sql = "INSERT INTO appointments (user_fullname, educator_fullname, subject_name, date_booked) VALUES (?, ?, ?, ?)";
+  const sql = "INSERT INTO appointments (user_fullname, user_username, educator_fullname, educator_username, subject_name, date_booked) VALUES (?, ?, ?, ?, ?, ?)";
 
-  const values = [user_fullname, educator_fullname, subject_name, date_booked];
+  const values = [user_fullname, user_username, educator_fullname, educator_username, subject_name, date_booked];
 
   db.query(sql, values, (err, data) => {
     if (err) {
