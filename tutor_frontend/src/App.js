@@ -20,6 +20,8 @@ import AddUsers from './Component/Hidden/UsersTable/AddUsers';
 import UpdateUser from './Component/Hidden/UsersTable/UpdateUser';
 import UpdateEducator from './Component/Hidden/EducatorsTable/UpdateEducator';
 import AddEducators from './Component/Hidden/EducatorsTable/AddEducators';
+import EducatorSelectionScreen from './Component/Menus/EducatorSelectionScreen/EducatorSelectionScreen';
+import EducatorBookingScreen from './Component/Menus/EducatorBookingScreen/EducatorBookingScreen';
 
 function App() {
   return (
@@ -49,6 +51,10 @@ function App() {
           <Route path="/MainEducatorMenu" element={<MainEducatorMenu/>}/>
           <Route path="/EducatorProfile" element={<EducatorProfile/>}/>
           <Route path="/EditEducatorProfile/:username" element={<EditEducatorProfile/>}/>
+
+          <Route path="/EducatorSelectionScreen/:subject" element={<EducatorSelectionScreen/>}/>
+          <Route path="/EducatorBookingScreen/:username/:subject" element={<EducatorBookingScreen/>}/>
+
 
         </Routes>
       </BrowserRouter>

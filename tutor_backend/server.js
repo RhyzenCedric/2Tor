@@ -133,6 +133,8 @@ app.get('/users/:username', (req, res) => {
   });
 });
 
+
+
 app.put('/users/:username', (req, res) => {
   const { username } = req.params;
   const updatedUserData = req.body;
@@ -225,7 +227,18 @@ app.delete('/educators/:username', (req, res) => {
   });
 });
 
-
+app.get('/educators/subjects_taught/:subject', (req, res) => {
+  const { subject } = req.params;
+  const query = `SELECT * FROM educators WHERE JSON_CONTAINS(subjects_taught, JSON_ARRAY(?))`;
+  db.query(query, [subject], (err, results) => {
+    if (err) {
+      console.error('Error retrieving educators for subject:', err);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    res.json(results);
+  });
+});
 
 
 
