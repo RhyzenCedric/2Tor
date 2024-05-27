@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function EducatorProfile() {
   const [educatorData, setEducatorData] = useState(null);
+  const [educatorReviews, setEducatorReviews] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,12 +14,20 @@ export default function EducatorProfile() {
       axios.get(`http://localhost:5000/educators/${educator_username}`)
         .then(res => {
           setEducatorData(res.data);
+          // Fetch reviews for the specific educator
+          axios.get(`http://localhost:5000/educator-reviews/${educator_username}`)
+            .then(res => {
+              setEducatorReviews(res.data);
+            })
+            .catch(err => {
+              console.log('Error fetching educator reviews:', err);
+            });
         })
         .catch(err => {
-          console.log('Error fetching user data:', err);
+          console.log('Error fetching educator data:', err);
         });
     } else {
-      console.log('No user data found in session storage.');
+      console.log('No educator data found in session storage.');
     }
   }, []);
 
@@ -54,6 +63,19 @@ export default function EducatorProfile() {
         </div>
       ) : (
         <p>Loading...</p>
+      )}
+
+      {educatorReviews.length > 0 && (
+        <div>
+          <h3>Educator Reviews</h3>
+          {educatorReviews.map(review => (
+            <div key={review.review_id}>
+              <p>Review: {review.review_text}</p>
+              <p>Rating: {review.sentiment_score}</p>
+              <hr />
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

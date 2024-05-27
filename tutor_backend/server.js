@@ -307,6 +307,45 @@ app.get('/reviews/:username/:subject', (req, res) => {
   });
 });
 
+app.get('/reviews/:username', (req, res) => {
+  const { username } = req.params; // Retrieve username from request parameters
+  // SQL query to retrieve reviews for the specified educator
+  const sql = "SELECT * FROM reviews WHERE `educator_username` = ?";
+  db.query(sql, [username], (err, data) => {
+    if (err) {
+      console.error("Error fetching reviews:", err);
+      return res.status(500).json("Error fetching reviews");
+    }
+    res.json(data); // Send the list of reviews as a JSON response
+  });
+});
+
+app.get('/user-reviews/:username', (req, res) => {
+  const { username } = req.params;
+  // SQL query to retrieve reviews for the specified user
+  const sql = "SELECT * FROM reviews WHERE `user_username` = ?";
+  db.query(sql, [username], (err, data) => {
+    if (err) {
+      console.error("Error fetching user reviews:", err);
+      return res.status(500).json("Error fetching user reviews");
+    }
+    res.json(data);
+  });
+});
+
+app.get('/educator-reviews/:username', (req, res) => {
+  const { username } = req.params;
+  // SQL query to retrieve reviews for the specified educator
+  const sql = "SELECT * FROM reviews WHERE `educator_username` = ?";
+  db.query(sql, [username], (err, data) => {
+    if (err) {
+      console.error("Error fetching educator reviews:", err);
+      return res.status(500).json("Error fetching educator reviews");
+    }
+    res.json(data);
+  });
+});
+
 app.post('/submitReview', (req, res) => {
   const { user_fullname, user_username, educator_fullname, educator_username, subject_name, review_text, review_date, sentiment_score } = req.body;
 

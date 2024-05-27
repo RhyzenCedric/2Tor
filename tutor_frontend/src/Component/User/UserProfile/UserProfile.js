@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function UserProfile() {
   const [userData, setUserData] = useState(null);
+  const [userReviews, setUserReviews] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,6 +14,14 @@ export default function UserProfile() {
       axios.get(`http://localhost:5000/users/${user_username}`)
         .then(res => {
           setUserData(res.data);
+          // Fetch reviews made by the user
+          axios.get(`http://localhost:5000/user-reviews/${user_username}`)
+            .then(res => {
+              setUserReviews(res.data);
+            })
+            .catch(err => {
+              console.log('Error fetching user reviews:', err);
+            });
         })
         .catch(err => {
           console.log('Error fetching user data:', err);
@@ -50,6 +59,20 @@ export default function UserProfile() {
         </div>
       ) : (
         <p>Loading...</p>
+      )}
+
+      {userReviews.length > 0 && (
+        <div>
+          <h3>User Reviews</h3>
+          {userReviews.map(review => (
+            <div key={review.review_id}>
+              <p>Review: {review.review_text}</p>
+              <p>Educator: {review.educator_fullname}</p>
+              <p>Subject: {review.subject_name}</p>
+              <hr />
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
