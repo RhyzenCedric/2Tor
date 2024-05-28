@@ -155,7 +155,7 @@ export default function RegisterEducator() {
                 </form>
             </div>
             <div className="logo-container">
-                <img src={logo_large} alt="2Tor Logo" className="logo_large" />
+            <Link to='/'><img src={logo_large} alt="2Tor Logo" className="logo_large" /></Link>
             </div>
         </div>
     );

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Redirect, useNavigate } from 'react-router-dom';
+import EducAuth from '../../EducAuth';
 
 export default function MainEducatorUserMenu() {
+  EducAuth();
   const [educatorFullname, setEducatorFullname] = useState('');
   const [appointments, setAppointments] = useState([]);
   const navigate = useNavigate();

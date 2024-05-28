@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import NavigationMainScreenUser from '../../NavigationBars/NavigationMainScreen/NavigationMainScreenUser';
+import useAuth from '../../UseAuth';
+import './MainUserMenu.css';
 
 export default function MainUserMenu() {
+  useAuth();
   const [userFullname, setFullname] = useState('');
   const [subjects, setSubjects] = useState([]);
   const navigate = useNavigate();
 
+  const handleSubjectClick = (subject) => {
+    navigate(`/EducatorSelectionScreen/${subject}`);
+  };
+  
   useEffect(() => {
     const user = sessionStorage.getItem('user');
     if (user) {
@@ -36,33 +44,25 @@ export default function MainUserMenu() {
     }
   }, []);
 
-  const redirectToProfile = () => {
-    navigate('/UserProfile');
-  };
-
-
-  const handleSubjectClick = (subject) => {
-    navigate(`/EducatorSelectionScreen/${subject}`);
-  };
-  
   return (
-    <div>
-      {userFullname ? (
-        <div>
-          <h1>Welcome, {userFullname}!</h1>
-          <button onClick={redirectToProfile}>Go to Profile</button>
-          <h2>Select a Subject:</h2>
-          <div>
+    <>
+      <div>
+        <NavigationMainScreenUser/>
+      </div>
+      <div className="main-user-menu">
+        <section>
+          <div className="heading">
+            <h2>Hello {userFullname}! Please select a subject:</h2>
+          </div>
+          <div className="subject-buttons-container">
             {subjects.map((subject, index) => (
-              <button key={index} onClick={() => handleSubjectClick(subject)}>
+              <button key={index} className="subject-button" onClick={() => handleSubjectClick(subject)}>
                 {subject}
               </button>
             ))}
           </div>
-        </div>
-      ) : (
-        <h1>Loading...</h1>
-      )}
-    </div>
+        </section>
+      </div>
+    </>
   );
 }
