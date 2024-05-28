@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import './UsersTable.css'; // Import the CSS file
 
 export default function UsersTable() {
   const [users, setUsers] = useState([]);
@@ -36,9 +37,9 @@ export default function UsersTable() {
   };
 
   return (
-    <div>
+    <div className="users-table-container">
       <h2>Users</h2>
-      <Link to='/AddUsers'><button>Add User</button></Link>
+      <Link to='/AddUsers' className="add-user-btn">Add User</Link>
       <table>
         <thead>
           <tr>
@@ -58,9 +59,9 @@ export default function UsersTable() {
               <td>{user.user_fullname}</td>
               <td>{user.user_email}</td>
               <td>{user.user_phonenum}</td>
-              <td>
-                <button onClick={() => handleUpdateUser(user.user_username)}>Edit</button>
-                <button onClick={() => handleDeleteUser(user.user_username)}>Delete</button>
+              <td className="actions-btns">
+                <button className="edit-btn" onClick={() => handleUpdateUser(user.user_username)}>Edit</button>
+                <button className="delete-btn" onClick={() => handleDeleteUser(user.user_username)}>Delete</button>
               </td>
             </tr>
           ))}

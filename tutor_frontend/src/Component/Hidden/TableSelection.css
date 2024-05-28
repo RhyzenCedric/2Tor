@@ -1,0 +1,54 @@
+/* Container for the table selection */
+.table-selection-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f9fa; /* Light background color */
+}
+
+.logo-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the logo */
+  .logo_large {
+    width: 300px; /* Increased size */
+    height: auto;
+  }
+/* Heading styles */
+.table-selection-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Button container styles */
+.table-selection-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Button styles */
+.table-selection-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Primary blue color */
+    color: #fff; /* White text color */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.table-selection-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Link styles */
+.link {
+    text-decoration: none;
+    color: inherit;
+}

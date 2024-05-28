@@ -4,7 +4,6 @@ import validation from '../../RegisterEducatorValidation'; // assuming you have 
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import './RegisterEducator.css'; // Import the CSS file
-import './RegisterEducator.css'
 import logo_large from '../../../images/2TorLogo.png';
 
 export default function RegisterEducator() {

@@ -1,0 +1,72 @@
+/* Container for the users table */
+.educators-table-container {
+    margin: 20px;
+  }
+  
+  /* Style for the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  /* Style for table header */
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  /* Style for table data */
+  td {
+    padding: 10px;
+  }
+  
+  /* Style for table actions */
+  .actions-btns {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Style for edit button */
+  .actions-btns button.edit-btn {
+    background-color: #64d2ed;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Style for delete button */
+  .actions-btns button.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Style for add user button */
+  .add-educator-btn {
+    background-color: #1dbf73;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .add-educator-btn:hover {
+    background-color: #17a65b;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    table {
+      font-size: 14px;
+    }
+  }
+  
