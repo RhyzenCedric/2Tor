@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import './EducatorSelectionScreen.css';
+import NavigationMainScreenUser from '../../NavigationBars/NavigationMainScreen/NavigationMainScreenUser';
 
 export default function EducatorSelectionScreen() {
   const { subject } = useParams();
@@ -24,15 +26,28 @@ export default function EducatorSelectionScreen() {
   };
 
   return (
-    <div>
-      <h1>Educators for {subject}</h1>
+    <>
       <div>
-        {educators.map((educator, index) => (
-          <button key={index} onClick={() => handleEducatorClick(educator)}>
-            {educator.educator_fullname}
-          </button>
-        ))}
+        <NavigationMainScreenUser />
       </div>
-    </div>
+      <div className="educator-selection-menu">
+        <section>
+          <div className="heading">
+            <h2>Educators for {subject}</h2>
+          </div>
+          <div className="subject-buttons-container">
+            {educators.map((educator, index) => (
+              <button
+                key={index}
+                className="subject-button"
+                onClick={() => handleEducatorClick(educator)}
+              >
+                {educator.educator_fullname}
+              </button>
+            ))}
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

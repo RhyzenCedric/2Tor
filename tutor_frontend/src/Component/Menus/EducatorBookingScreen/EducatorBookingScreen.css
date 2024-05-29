@@ -1,0 +1,62 @@
+/* CSS for both booking and review screens for consistency */
+
+.booking-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.booking-form button {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+}
+
+.booking-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.reviews-container {
+  margin-top: 20px;
+}
+
+.review-card {
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.review-user {
+  font-weight: bold;
+}
+
+.review-text {
+  margin-top: 5px;
+}

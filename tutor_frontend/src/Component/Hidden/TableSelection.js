@@ -19,14 +19,14 @@ export default function TableSelection() {
     return (
         <div className="role-selection-container">
             <div className="logo-container">
-                <img src={logo_large} alt="2Tor Logo" className="logo_large" />
+            <Link to='/'><img src={logo_large} alt="2Tor Logo" className="logo_large" /></Link>
             </div>
             <div className="box-container">
                 <div className="buttons-container">
                     <Link to="/UsersTable">
                         <button
                             className="role-button"
-                            data-hover-text="Are you selecting Users?"
+                            data-hover-text="Do you want to view all Users?"
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                         >
@@ -36,7 +36,7 @@ export default function TableSelection() {
                     <Link to="/EducatorsTable">
                         <button
                             className="role-button"
-                            data-hover-text="Are you selecting Educators?"
+                            data-hover-text="Do you want to view all Educators?"
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                         >

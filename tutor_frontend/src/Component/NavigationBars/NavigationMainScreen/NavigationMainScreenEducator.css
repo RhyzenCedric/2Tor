@@ -1,0 +1,47 @@
+.navigation-main-screen {
+    background-color: #1dbf73;
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Distribute items evenly with space in between */
+    align-items: center; /* Center items vertically */
+    padding: 10px; /* Add padding */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.logo-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.logo-small {
+    width: 200px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+.navbar {
+    display: inline-block;
+}
+
+.nav-menu {
+    list-style-type: none; /* Remove bullet points */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox for layout */
+}
+
+.nav-item {
+    margin-right: 20px; /* Adjust spacing between items */
+}
+
+.nav-link {
+    text-decoration: none; /* Remove underline */
+    color: #333333; /* Dark text color */
+    font-weight: bold; /* Bold font */
+    cursor: pointer; /* Show pointer on hover */
+    transition: color 0.3s; /* Smooth transition for color change */
+}
+
+.nav-link:hover {
+    color: #007bff; /* Change color on hover */
+}

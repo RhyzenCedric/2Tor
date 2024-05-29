@@ -241,11 +241,11 @@ app.get('/educators/subjects_taught/:subject', (req, res) => {
 });
 
 app.post('/createappointment', (req, res) => {
-  const { user_fullname, user_username, educator_fullname, educator_username, subject_name, date_booked } = req.body;
+  const { user_fullname, user_username, educator_fullname, educator_username, subject_name, date_booked, appointment_status } = req.body;
 
-  const sql = "INSERT INTO appointments (user_fullname, user_username, educator_fullname, educator_username, subject_name, date_booked) VALUES (?, ?, ?, ?, ?, ?)";
+  const sql = "INSERT INTO appointments (user_fullname, user_username, educator_fullname, educator_username, subject_name, date_booked, appointment_status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-  const values = [user_fullname, user_username, educator_fullname, educator_username, subject_name, date_booked];
+  const values = [user_fullname, user_username, educator_fullname, educator_username, subject_name, date_booked, appointment_status];
 
   db.query(sql, values, (err, data) => {
     if (err) {
@@ -292,6 +292,25 @@ app.get('/appointments/:username/:subject', (req, res) => {
       return res.status(500).json("Error fetching appointments");
     }
     res.json(data); // Send the list of appointments as a JSON response
+  });
+});
+
+app.put('/appointments/:id', (req, res) => {
+  const { id } = req.params;
+  const { appointment_status } = req.body;
+
+  const sql = "UPDATE appointments SET appointment_status = ? WHERE appointment_id = ?";
+  const values = [appointment_status, id];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error updating appointment:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Appointment not found' });
+    }
+    res.json({ message: 'Appointment updated successfully' });
   });
 });
 
