@@ -11,8 +11,7 @@ export default function EditEducatorProfile() {
         educator_fullname: '',
         educator_email: '',
         educator_phonenum: '',
-        // subjects_taught: [],
-        // newSubject: ''
+
     });
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
@@ -21,15 +20,7 @@ export default function EditEducatorProfile() {
         setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    // const addSubject = () => {
-    //     if (values.newSubject.trim() !== '') {
-    //         setValues(prev => ({
-    //             ...prev,
-    //             subjects_taught: [...prev.subjects_taught, prev.newSubject],
-    //             newSubject: ''
-    //         }));
-    //     }
-    // };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -79,8 +70,8 @@ export default function EditEducatorProfile() {
         }
     }, [errors]); // Run this effect whenever errors state changes
     return (
-        <div className='d-flex justify-content-center align-items-center bg-primary vh-100 vw-100'>
-            <div className='bg-white p-3 rounded w-50'>
+        <div className='edit-profile-container'>
+            <div className='edit-profile-box'>
                 <form onSubmit={handleSubmit}>
                     <div className='mb-3'>
                         <label htmlFor='educator_username'><strong>Username</strong></label>
@@ -88,10 +79,9 @@ export default function EditEducatorProfile() {
                             type='text'
                             placeholder='Enter Username'
                             name='educator_username'
-                            value={values.educator_username}
-                            disabled
-                            onChange={handleInput}
-                            className='form-control rounded-0'
+                            value={values.educator_username || ''}
+                            disabled // Disable editing username
+                            className='form-control'
                         />
                         {errors.educator_username && <span className='text-danger'>{errors.educator_username}</span>}
                     </div>
@@ -99,11 +89,11 @@ export default function EditEducatorProfile() {
                         <label htmlFor='educator_password'>Password</label>
                         <input
                             type='text'
-                            placeholder='Enter password'
+                            placeholder='Enter Password'
                             name='educator_password'
-                            value={values.educator_password}
+                            value={values.educator_password || ''}
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.educator_password && <span className='text-danger'>{errors.educator_password}</span>}
                     </div>
@@ -113,9 +103,9 @@ export default function EditEducatorProfile() {
                             type='text'
                             placeholder='Enter Full Name'
                             name='educator_fullname'
-                            value={values.educator_fullname}
+                            value={values.educator_fullname || ''}
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.educator_fullname && <span className='text-danger'>{errors.educator_fullname}</span>}
                     </div>
@@ -125,9 +115,9 @@ export default function EditEducatorProfile() {
                             type='text'
                             placeholder='Enter Email'
                             name='educator_email'
-                            value={values.educator_email}
+                            value={values.educator_email || ''}
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.educator_email && <span className='text-danger'>{errors.educator_email}</span>}
                     </div>
@@ -137,36 +127,12 @@ export default function EditEducatorProfile() {
                             type='text'
                             placeholder='Enter Phone Number'
                             name='educator_phonenum'
-                            value={values.educator_phonenum}
+                            value={values.educator_phonenum || ''}
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.educator_phonenum && <span className='text-danger'>{errors.educator_phonenum}</span>}
                     </div>
-                    {/* <div className='mb-3'>
-                        <label htmlFor='subjects_taught'><strong>Subjects Taught</strong></label>
-                        <div className="d-flex">
-                            <input
-                                type='text'
-                                placeholder='Enter Subject'
-                                name='newSubject'
-                                value={values.newSubject}
-                                onChange={handleInput}
-                                className='form-control rounded-0'
-                            />
-                            <button type="button" onClick={addSubject} className="btn btn-primary ms-2">Add Subject</button>
-                        </div>
-                        {values.subjects_taught.map((subject, index) => (
-                            <div key={index} className="mt-2">
-                                <input
-                                    type='text'
-                                    value={subject}
-                                    disabled
-                                    className='form-control rounded-0'
-                                />
-                            </div>
-                        ))}
-                    </div> */}
                     <button type='submit' className='btn btn-success w-100'><strong>Edit</strong></button>
                 </form>
             </div>

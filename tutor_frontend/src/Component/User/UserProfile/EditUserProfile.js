@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import validation from '../../RegisterUserValidation';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import './EditUserProfile.css'; 
 
 export default function EditUserProfile() {
     const [values, setValues] = useState({
@@ -47,7 +48,6 @@ export default function EditUserProfile() {
                 });
         }
     }, [errors]); // Run this effect whenever errors state changes
-    
 
     const handleInput = (e) => {
         setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -58,10 +58,9 @@ export default function EditUserProfile() {
         setErrors(validation(values));
     };
 
-
     return (
-        <div className='d-flex justify-content-center align-items-center bg-primary vh-100 vw-100'>
-            <div className='bg-white p-3 rounded w-25'>
+        <div className='edit-profile-container'>
+            <div className='edit-profile-box'>
                 <form onSubmit={handleSubmit}>
                     <div className='mb-3'>
                         <label htmlFor='user_username'><strong>Username</strong></label>
@@ -70,9 +69,8 @@ export default function EditUserProfile() {
                             placeholder='Enter Username'
                             name='user_username'
                             value={values.user_username || ''}
-                            disabled
-                            onChange={handleInput}
-                            className='form-control rounded-0'
+                            disabled // Disable editing username
+                            className='form-control'
                         />
                         {errors.user_username && <span className='text-danger'>{errors.user_username}</span>}
                     </div>
@@ -84,7 +82,7 @@ export default function EditUserProfile() {
                             name='user_password'
                             value={values.user_password || ''}
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.user_password && <span className='text-danger'>{errors.user_password}</span>}
                     </div>
@@ -96,7 +94,7 @@ export default function EditUserProfile() {
                             name='user_fullname'
                             value={values.user_fullname || ''}
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.user_fullname && <span className='text-danger'>{errors.user_fullname}</span>}
                     </div>
@@ -108,7 +106,7 @@ export default function EditUserProfile() {
                             name='user_email'
                             value={values.user_email || ''}
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.user_email && <span className='text-danger'>{errors.user_email}</span>}
                     </div>
@@ -120,7 +118,7 @@ export default function EditUserProfile() {
                             name='user_phonenum'
                             value={values.user_phonenum || ''}
                             onChange={handleInput}
-                            className='form-control rounded-0'
+                            className='form-control'
                         />
                         {errors.user_phonenum && <span className='text-danger'>{errors.user_phonenum}</span>}
                     </div>

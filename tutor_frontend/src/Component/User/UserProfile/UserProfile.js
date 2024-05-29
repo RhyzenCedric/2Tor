@@ -38,7 +38,18 @@ export default function UserProfile() {
   };
 
   const handleDeleteProfile = () => {
-    // Implement delete profile functionality
+    if (window.confirm("Are you sure you want to delete your account?")) {
+      axios.delete(`http://localhost:5000/users/${userData.user_username}`)
+        .then(res => {
+          console.log(res.data.message);
+          sessionStorage.removeItem('user');
+          navigate('/');
+          alert("Your account has been deleted.");
+        })
+        .catch(err => {
+          console.log('Error deleting user:', err);
+        });
+    }
   };
 
   const handleReturnButton = () => {
@@ -46,48 +57,47 @@ export default function UserProfile() {
   };
 
   return (
-<>
-  <div>
-    <NavigationMainScreenUser/>
-  </div>
-  <div className="profile-container">
-    <div className="profile-details">
-      {userData ? (
-        <>
-          <h2>User Profile</h2>
-          <p><strong>Username:</strong> {userData.user_username}</p>
-          <p><strong>Full Name:</strong> {userData.user_fullname}</p>
-          <p><strong>Email:</strong> {userData.user_email}</p>
-          <p><strong>Password:</strong> {userData.user_password}</p>
-          <p><strong>Phone Number:</strong> {userData.user_phonenum}</p>
-          <div className="profile-buttons">
-            <button className="edit-button" onClick={handleEditProfile}>Edit Profile</button>
-            <button className="delete-button" onClick={handleDeleteProfile}>Delete Profile</button>
-            <button className="return-button" onClick={handleReturnButton}>Back</button>
-          </div>
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-  </div>
+    <>
+      <div>
+        <NavigationMainScreenUser/>
+      </div>
+      <div className="profile-container">
+        <div className="profile-details">
+          {userData ? (
+            <>
+              <h2>Your Profile</h2>
+              <p><strong>Username:</strong> {userData.user_username}</p>
+              <p><strong>Full Name:</strong> {userData.user_fullname}</p>
+              <p><strong>Email:</strong> {userData.user_email}</p>
+              <p><strong>Password:</strong> {userData.user_password}</p>
+              <p><strong>Phone Number:</strong> {userData.user_phonenum}</p>
+              <div className="profile-buttons">
+                <button className="edit-button" onClick={handleEditProfile}>Edit Profile</button>
+                <button className="delete-button" onClick={handleDeleteProfile}>Delete Profile</button>
+                <button className="return-button" onClick={handleReturnButton}>Back</button>
+              </div>
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+      </div>
 
-  <div className="reviews-container">
-    {userReviews.length > 0 && (
-      <>
-        <h3>User Reviews</h3>
-        {userReviews.map(review => (
-          <div className="review" key={review.review_id}>
-            <p><strong>Review:</strong> {review.review_text}</p>
-            <p><strong>Educator:</strong> {review.educator_fullname}</p>
-            <p><strong>Subject:</strong> {review.subject_name}</p>
-            <hr />
-          </div>
-        ))}
-      </>
-    )}
-  </div>
-</>
-
+      <div className="reviews-container">
+        {userReviews.length > 0 && (
+          <>
+            <h3>Reviews Made By You</h3>
+            {userReviews.map(review => (
+              <div className="review" key={review.review_id}>
+                <p><strong>Review:</strong> {review.review_text}</p>
+                <p><strong>Educator:</strong> {review.educator_fullname}</p>
+                <p><strong>Subject:</strong> {review.subject_name}</p>
+                <hr />
+              </div>
+            ))}
+          </>
+        )}
+      </div>
+    </>
   );
 }
