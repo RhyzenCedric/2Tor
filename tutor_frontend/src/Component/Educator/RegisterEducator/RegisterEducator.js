@@ -43,6 +43,9 @@ export default function RegisterEducator() {
             } catch (err) {
                 console.log(err);
                 toast.error("Registration Failed"); // Display error message
+                if (err.response && err.response.status === 400 && err.response.data && err.response.data.error) {
+                    toast.error(err.response.data.error); // Display error message for existing educator
+                }
             }
         };
 

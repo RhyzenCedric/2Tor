@@ -1,4 +1,4 @@
-1. Edit Educator - can't add subject
+1. Edit Educator - can't edit add subject
 2. Scheduling - double booking detection
 3. Review - Should be disabled if not booked yet (solved)
 
@@ -42,3 +42,8 @@ code for adding subjects in edit educator
                             </div>
                         ))}
                     </div> */}
+
+          <p>Subjects Taught: {educatorData.subjects_taught.split(',').map((subject, index) => (
+              <span key={index}>{subject.trim()}{index < educatorData.subjects_taught.split(',').length - 1 ? ', ' : ''}</span>
+            ))}
+          </p>

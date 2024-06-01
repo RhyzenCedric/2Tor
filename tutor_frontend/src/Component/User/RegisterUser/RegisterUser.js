@@ -30,8 +30,13 @@ export default function RegisterUser() {
                     navigate('/loginUser');
                 })
                 .catch(err => {
-                    console.log(err);
-                    toast.error("Registration Failed");
+                    if (err.response.status === 400 && err.response.data.error) {
+                        // User already exists, display toast message
+                        toast.error(err.response.data.error);
+                    } else {
+                        console.log(err);
+                        toast.error("Registration Failed");
+                    }
                 });
         }
     }, [errors]);
