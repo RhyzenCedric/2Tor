@@ -90,7 +90,7 @@ export default function EducatorProfile() {
       <div className="reviews-container">
         {educatorReviews.length > 0 && (
           <>
-            <h3>Reviews Made To The Educator </h3>
+            <h3>Reviews Made To {educatorData.educator_fullname} </h3>
             {educatorReviews.map(review => (
               <div className="review" key={review.review_id}>
                 <p><strong>Subject:</strong> {review.subject_name}</p>

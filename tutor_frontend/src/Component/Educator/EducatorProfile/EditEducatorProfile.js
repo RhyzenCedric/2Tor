@@ -11,6 +11,8 @@ export default function EditEducatorProfile() {
         educator_fullname: '',
         educator_email: '',
         educator_phonenum: '',
+        subjects_taught: [],
+        newSubject: ''
 
     });
     const navigate = useNavigate();
@@ -20,7 +22,15 @@ export default function EditEducatorProfile() {
         setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-
+    const addSubject = () => {
+        if (values.newSubject.trim() !== '') {
+            setValues(prev => ({
+                ...prev,
+                subjects_taught: [...prev.subjects_taught, prev.newSubject],
+                newSubject: ''
+            }));
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -132,6 +142,30 @@ export default function EditEducatorProfile() {
                             className='form-control'
                         />
                         {errors.educator_phonenum && <span className='text-danger'>{errors.educator_phonenum}</span>}
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='subjects_taught'><strong>Subjects Taught</strong></label>
+                        <div className="d-flex">
+                            <input
+                                type='text'
+                                placeholder='Enter Subject'
+                                name='newSubject'
+                                value={values.newSubject}
+                                onChange={handleInput}
+                                className='form-control rounded-0'
+                            />
+                            <button type="button" onClick={addSubject} className="btn btn-primary ms-2">Add Subject</button>
+                        </div>
+                        {values.subjects_taught.map((subject, index) => (
+                            <div key={index} className="mt-2">
+                                <input
+                                    type='text'
+                                    value={subject}
+                                    disabled
+                                    className='form-control rounded-0'
+                                />
+                            </div>
+                        ))}
                     </div>
                     <button type='submit' className='btn btn-success w-100'><strong>Edit</strong></button>
                 </form>

@@ -26,7 +26,7 @@ export default function TableSelection() {
                     <Link to="/UsersTable">
                         <button
                             className="role-button"
-                            data-hover-text="Do you want to view all Users?"
+                            data-hover-text="View all Users?"
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                         >
@@ -36,11 +36,21 @@ export default function TableSelection() {
                     <Link to="/EducatorsTable">
                         <button
                             className="role-button"
-                            data-hover-text="Do you want to view all Educators?"
+                            data-hover-text="View all Educators?"
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                         >
                             Educators
+                        </button>
+                    </Link>
+                    <Link to="/Rankings">
+                        <button
+                            className="role-button"
+                            data-hover-text="View all Educator Rankings?"
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            Rankings
                         </button>
                     </Link>
                     <Link to="/">

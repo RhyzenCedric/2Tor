@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {ToastContainer} from 'react-toastify';
 import RegisterUser from './Component/User/RegisterUser/RegisterUser';
@@ -23,6 +22,8 @@ import AddEducators from './Component/Hidden/EducatorsTable/AddEducators';
 import EducatorSelectionScreen from './Component/Menus/EducatorSelectionScreen/EducatorSelectionScreen';
 import EducatorBookingScreen from './Component/Menus/EducatorBookingScreen/EducatorBookingScreen';
 import EducatorReviewScreen from './Component/Menus/EducatorReviewScreen/EducatorReviewScreen';
+import Rankings from './Component/Hidden/Rankings/Rankings';
+import RankingbySubjects from './Component/Hidden/Rankings/RankingbySubjects';
 
 function App() {
   return (
@@ -40,6 +41,8 @@ function App() {
           <Route path="/UpdateUser/:username" element={<UpdateUser/>}/>
           <Route path="/AddEducators" element={<AddEducators/>}/>
           <Route path="/UpdateEducator/:username" element={<UpdateEducator/>}/>
+          <Route path="/Rankings" element={<Rankings/>}/>
+          <Route path="/RankingbySubjects/:subject" element={<RankingbySubjects/>}/>
 
           <Route path="/registerUser" element={<RegisterUser/>}/>
           <Route path="/loginUser" element={<LoginUser/>}/>
