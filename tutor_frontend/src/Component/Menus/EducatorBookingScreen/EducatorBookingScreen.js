@@ -56,8 +56,6 @@ export default function EducatorBookingScreen() {
         console.log('Error fetching reviews:', err);
       });
 
-    // Implement logic to check for double booking
-    // setIsDoubleBooking(checkForDoubleBooking()); // Implement this function
   }, [username, subject]);
 
   const handleBookingSubmit = async (event) => {

@@ -1,6 +1,7 @@
-1. Edit Educator - can't edit add subject
+1. Edit Educator - can't add subject
 2. Scheduling - double booking detection
-3. Review - Should be disabled if not booked yet (solved)
+3. Review - Should be disabled if the user has already placed a review
+4. Booking and Scheduling - resets when being reloaded
 
 
 code for adding subjects in edit educator
